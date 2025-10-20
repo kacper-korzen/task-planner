@@ -9,6 +9,7 @@
   --clr-secondary: hsl(44, 12%, 76%);
   --clr-accent: hsl(155, 14%, 64%);
   --clr-accent-3: hsla(155, 14%, 64%, 0.3);
+  --clr-accent-2: hsla(155, 14%, 64%, 0.2);
 
   --ff-base: "Comfortaa", serif;
   --ff-accent: "Nunito", serif;
@@ -59,6 +60,34 @@ h3 {
   font-size: var(--fs-500);
 }
 
+
+button {
+  background-color: transparent;
+  border: none;
+  width: fit-content;
+  font-size: var(--fs-300);
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+button:hover {
+  background-color: var(--clr-accent-2);
+}
+
+.btn-task {
+  background-color: var(--clr-accent-2);
+  padding-inline: 5rem;
+}
+
+.btn-task:hover {
+  background-color: var(--clr-accent-3);
+}
+
 .flow > * + * {
   --flow-space: 1em;
   margin-top: var(--flow-space, 1em);
@@ -80,6 +109,10 @@ h3 {
   padding: 1rem;
 }
 
+.pb-1 {
+  padding: 1rem;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 0.2fr 0.8fr;
@@ -92,6 +125,14 @@ h3 {
   min-width: 100vw;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
 header {
   grid-area: header;
 }
@@ -102,9 +143,13 @@ aside {
 
 main {
   grid-area: main;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  justify-items: center;
 }
 
 footer {
   grid-area: footer;
   font-size: var(--fs-200);
+  text-align: center;
 }
