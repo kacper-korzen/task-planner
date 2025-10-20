@@ -5,11 +5,13 @@
   --clr-text: hsl(25, 20%, 10%);
   --clr-body: hsl(36, 34%, 95%);
   --clr-background: hsl(120, 100%, 98%);
-  --clr-primary: hsl(1, 56%, 82%);
-  --clr-secondary: hsl(44, 12%, 76%);
-  --clr-accent: hsl(155, 14%, 64%);
-  --clr-accent-3: hsla(155, 14%, 64%, 0.3);
-  --clr-accent-2: hsla(155, 14%, 64%, 0.2);
+  --clr-primary: hsl(155, 14%, 64%);
+  --clr-primary-3: hsla(155, 14%, 64%, 0.3);
+  --clr-primary-2: hsla(155, 14%, 64%, 0.2);
+  --clr-priority-1: hsl(230, 39%, 56%);
+  --clr-priority-2: hsl(26, 68%, 57%);
+  --clr-priority-3: hsl(348, 49%, 46%);
+  
 
   --ff-base: "Comfortaa", serif;
   --ff-accent: "Nunito", serif;
@@ -76,16 +78,16 @@ button {
 }
 
 button:hover {
-  background-color: var(--clr-accent-2);
+  background-color: var(--clr-primary-2);
 }
 
 .btn-task {
-  background-color: var(--clr-accent-2);
+  background-color: var(--clr-primary-2);
   padding-inline: 5rem;
 }
 
 .btn-task:hover {
-  background-color: var(--clr-accent-3);
+  background-color: var(--clr-primary-3);
 }
 
 .flow > * + * {
@@ -93,12 +95,12 @@ button:hover {
   margin-top: var(--flow-space, 1em);
 }
 
-.bg-accent {
-  background-color: var(--clr-accent);
+.bg-primary {
+  background-color: var(--clr-primary);
 }
 
-.bg-accent-3 {
-  background-color: var(--clr-accent-3);
+.bg-primary-3 {
+  background-color: var(--clr-primary-3);
 }
 
 .bg-secondary {
