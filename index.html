@@ -12,25 +12,32 @@
         <h1>Task Planner</h1>
       </header>
 
-      <aside class="bg-accent-3">
-        <div class="flex flex-col">
-          <button>Inbox</button>
-          <button>Today</button>
-          <button>This week</button>
+      <aside class="bg-accent-3 p-1">
+        <div class="flex flex-col pb-1">
+          <button><img src="/inbox.svg" alt="inbox icon">Inbox</button>
+          <button><img src="today.svg" alt="today icon">Today</button>
+          <button><img src="/thisweek.svg" alt="this week icon">This week</button>
         </div>
 
         <div>
-          <h4>PROJECTS</h4>
-          <hr />
-          <button>+ Add Project</button>
+          <div>
+            <h3>PROJECTS</h3>
+            <hr />
+            <button><img src="/patch-plus.svg" alt="patch plus icon">Add Project</button>
+          </div>
+          <div class="projects">
+          </div>
         </div>
       </aside>
 
-      <main>
-        <button>+ Add task</button>
+      <main class="p-1">
+        <div>
+          <button class="btn-task"><img src="/patch-plus.svg" alt="patch plus icon">Add task</button>
+        </div>
+        <div class="tasks"></div>
       </main>
 
-      <footer class="p-1">
+      <footer class="p-1 bg-accent">
         <script>
           document.write(
             `&copy; ${new Date().getFullYear()}  <a href='https://github.com/kacper-korzen'>Kacper K</a>`
