@@ -1,5 +1,5 @@
 @import "reset.css";
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 :root {
   --clr-text: hsl(25, 20%, 10%);
@@ -8,9 +8,10 @@
   --clr-primary: hsl(1, 56%, 82%);
   --clr-secondary: hsl(44, 12%, 76%);
   --clr-accent: hsl(155, 14%, 64%);
+  --clr-accent-3: hsla(155, 14%, 64%, 0.3);
 
-  --ff-base: 'Comfortaa', serif;
-  --ff-accent: 'Nunito', serif;
+  --ff-base: "Comfortaa", serif;
+  --ff-accent: "Nunito", serif;
 
   --fw-regular: 400;
   --fw-semi-bold: 700;
@@ -29,46 +30,81 @@
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: start;
   min-width: 320px;
   min-height: 100vh;
   font-family: var(--ff-base);
   font-size: var(--fs-400);
   line-height: 1.5;
-  color:var(--clr-text);
+  color: var(--clr-text);
 }
 
-h1, h2, h3 {
-    font-family: var(--ff-accent);
-    line-height: 1.1;
-    text-wrap: balance;
+h1,
+h2,
+h3 {
+  font-family: var(--ff-accent);
+  line-height: 1.1;
+  text-wrap: balance;
 }
 
 h1 {
-    font-size: var(--fs-700);
+  font-size: var(--fs-700);
 }
 
 h2 {
-    font-size: var(--fs-600);
+  font-size: var(--fs-600);
 }
 
-h3{
-    font-size: var(--fs-500);
-}
-
-.wrapper {
-    width: min(65ch, 100% - 4rem);
-    margin-inline: auto;
-    min-height: 100vh;
+h3 {
+  font-size: var(--fs-500);
 }
 
 .flow > * + * {
-    --flow-space: 1em;
-    margin-top: var(--flow-space, 1em);
+  --flow-space: 1em;
+  margin-top: var(--flow-space, 1em);
 }
 
+.bg-accent {
+  background-color: var(--clr-accent);
+}
 
-.flex-wrapper {
-    display: flex;
-    flex-direction: column;
+.bg-accent-3 {
+  background-color: var(--clr-accent-3);
+}
+
+.bg-secondary {
+  background-color: var(--clr-secondary);
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "menu main"
+    "footer footer";
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+header {
+  grid-area: header;
+}
+
+aside {
+  grid-area: menu;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+  font-size: var(--fs-200);
 }
