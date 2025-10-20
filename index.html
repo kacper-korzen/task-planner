@@ -1,37 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/css/style.css" />
     <title>Task planner</title>
   </head>
   <body>
-    <!-- <div id="app"></div>
-    <script type="module" src="/src/main.js"></script> -->
-    <header><h1>Task Planner</h1></header>
-    
-    <main>
-      <aside>
-        <div>
+    <div class="wrapper">
+      <header class="bg-accent p-1">
+        <h1>Task Planner</h1>
+      </header>
+
+      <aside class="bg-accent-3">
+        <div class="flex flex-col">
           <button>Inbox</button>
           <button>Today</button>
           <button>This week</button>
         </div>
 
         <div>
-          <h3>PROJECTS</h3>
-          <hr>
+          <h4>PROJECTS</h4>
+          <hr />
           <button>+ Add Project</button>
         </div>
       </aside>
-      <section>
+
+      <main>
         <button>+ Add task</button>
-      </section>
-    </main>
-    <footer>
-      <script>
-        document.write(`&copy; ${new Date().getFullYear()}  <a href='https://github.com/kacper-korzen'>Kacper K</a>`);
-      </script>
-    </footer>
+      </main>
+
+      <footer class="p-1">
+        <script>
+          document.write(
+            `&copy; ${new Date().getFullYear()}  <a href='https://github.com/kacper-korzen'>Kacper K</a>`
+          );
+        </script>
+      </footer>
+    </div>
+    <!-- <script type="module" src="/src/main.js"></script> -->
   </body>
 </html>
