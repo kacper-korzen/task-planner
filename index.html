@@ -6,7 +6,32 @@
     <title>Task planner</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- <div id="app"></div>
+    <script type="module" src="/src/main.js"></script> -->
+    <header><h1>Task Planner</h1></header>
+    
+    <main>
+      <aside>
+        <div>
+          <button>Inbox</button>
+          <button>Today</button>
+          <button>This week</button>
+        </div>
+
+        <div>
+          <h3>PROJECTS</h3>
+          <hr>
+          <button>+ Add Project</button>
+        </div>
+      </aside>
+      <section>
+        <button>+ Add task</button>
+      </section>
+    </main>
+    <footer>
+      <script>
+        document.write(`&copy; ${new Date().getFullYear()}  <a href='https://github.com/kacper-korzen'>Kacper K</a>`);
+      </script>
+    </footer>
   </body>
 </html>
