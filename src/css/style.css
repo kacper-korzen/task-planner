@@ -1,0 +1,74 @@
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+  --clr-text: hsl(25, 20%, 10%);
+  --clr-body: hsl(36, 34%, 95%);
+  --clr-background: hsl(120, 100%, 98%);
+  --clr-primary: hsl(1, 56%, 82%);
+  --clr-secondary: hsl(44, 12%, 76%);
+  --clr-accent: hsl(155, 14%, 64%);
+
+  --ff-base: 'Comfortaa', serif;
+  --ff-accent: 'Nunito', serif;
+
+  --fw-regular: 400;
+  --fw-semi-bold: 700;
+  --fw-bold: 900;
+
+  --fs-100: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
+  --fs-200: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+  --fs-300: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --fs-400: clamp(1.35rem, 1.2761rem + 0.3696vw, 1.5625rem);
+  --fs-500: clamp(1.62rem, 1.5041rem + 0.5793vw, 1.9531rem);
+  --fs-600: clamp(1.944rem, 1.771rem + 0.8651vw, 2.4414rem);
+  --fs-700: clamp(2.3328rem, 2.0827rem + 1.2504vw, 3.0518rem);
+  --fs-800: clamp(2.7994rem, 2.4462rem + 1.7658vw, 3.8147rem);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--ff-base);
+  font-size: var(--fs-400);
+  line-height: 1.5;
+  color:var(--clr-text);
+}
+
+h1, h2, h3 {
+    font-family: var(--ff-accent);
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: var(--fs-700);
+}
+
+h2 {
+    font-size: var(--fs-600);
+}
+
+h3{
+    font-size: var(--fs-500);
+}
+
+.wrapper {
+    width: min(65ch, 100% - 4rem);
+    margin-inline: auto;
+    min-height: 100vh;
+}
+
+.flow > * + * {
+    --flow-space: 1em;
+    margin-top: var(--flow-space, 1em);
+}
+
+
+.flex-wrapper {
+    display: flex;
+    flex-direction: column;
+}
