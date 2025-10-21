@@ -1,10 +1,11 @@
 import Task from "./Task.js";
 
 export default class Project {
-  constructor(name) {
+  constructor(name, isDefault = false) {
     this.id = crypto.randomUUID();
     this.name = name;
     this.tasks = [];
+    this.isDefault = isDefault;
   }
 
   addTask(task) {
