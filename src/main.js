@@ -46,18 +46,27 @@ const newTask = new Task("Learn JS", "Study classes", "2025-10-25", "3");
 project.addTask(newTask);
 
 
-function saveProjectToStorage(projectName) {
-  let serializedProject = JSON.stringify(projectName);
-  localStorage.setItem(projectName, serializedProject);
+function saveProjectToStorage(project) {
+  if (project instanceof Project) {
+    let serializedProject = JSON.stringify(project);
+    localStorage.setItem(project.name, serializedProject);
+  } else {
+    console.warn("You tried to add something that isn't a Task instance");
+  }
+  
 }
 
 
 
 function saveDefaultProjects() {
   // DEFAULT PROJECTS
-  saveDefaultProjects("Inbox");
-  saveDefaultProjects("Today");
-  saveDefaultProjects("ThisWeek");
+  const Inbox = new Project("Inbox");
+  const Today = new Project("Today");
+  const ThisWeek = new Project("ThisWeek");
+
+  saveProjectToStorage(Inbox);
+  saveProjectToStorage(Today);
+  saveProjectToStorage(ThisWeek);
 
 
 }
