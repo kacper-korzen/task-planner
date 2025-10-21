@@ -46,23 +46,20 @@ const newTask = new Task("Learn JS", "Study classes", "2025-10-25", "3");
 project.addTask(newTask);
 
 
+function saveProjectToStorage(projectName) {
+  let serializedProject = JSON.stringify(projectName);
+  localStorage.setItem(projectName, serializedProject);
+}
 
 
-function defaultProjects() {
+
+function saveDefaultProjects() {
   // DEFAULT PROJECTS
-  const Inbox = new Project("Inbox");
-  const Today = new Project("Today");
-  const ThisWeek = new Project("ThisWeek");
+  saveDefaultProjects("Inbox");
+  saveDefaultProjects("Today");
+  saveDefaultProjects("ThisWeek");
 
-  //adding default projects to local storage
-  let serializedInbox = JSON.stringify(Inbox);
-  localStorage.setItem(Inbox.name, serializedInbox);
-  
-  let serializedToday = JSON.stringify(Today);
-  localStorage.setItem(Today.name, serializedToday);
 
-  let serializedThisWeek = JSON.stringify(ThisWeek);
-  localStorage.setItem(ThisWeek.name, serializedThisWeek);
 }
 
 
