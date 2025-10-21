@@ -43,3 +43,29 @@ class Project {
 const project = new Project("Frontend learning");
 const newTask = new Task("Learn JS", "Study classes", "2025-10-25", "3");
 
+project.addTask(newTask);
+
+// DEFAULT PROJECTS
+const Inbox = new Project("Inbox");
+Inbox.addTask(newTask);
+const Today = new Project("Today");
+const ThisWeek = new Project("ThisWeek");
+
+//adding default projects to local storage
+let serializedInbox = JSON.stringify(Inbox);
+localStorage.setItem(Inbox.name, serializedInbox);
+let deserializedInbox = JSON.parse(localStorage.getItem(Inbox.name));
+
+let serializedToday = JSON.stringify(Today);
+localStorage.setItem(Today.name, serializedToday);
+let deserializedToday = JSON.parse(localStorage.getItem(Today.name));
+
+let serializedThisWeek = JSON.stringify(ThisWeek);
+localStorage.setItem(ThisWeek.name, serializedThisWeek);
+let deserializedThisWeek = JSON.parse(localStorage.getItem(ThisWeek.name));
+
+
+console.log(deserializedInbox);
+console.log(deserializedToday);
+console.log(deserializedThisWeek);
+
