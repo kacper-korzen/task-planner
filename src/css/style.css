@@ -136,8 +136,34 @@ button:hover {
   flex-direction: column;
 }
 
-.btn-close{
+.btn-close {
   color: var(--clr-error);
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background: var(--clr-background);
+  transition: transform 0.08s ease;
+}
+
+.priority-low {
+  border-left: 6px solid var(--clr-priority-1);
+}
+.priority-med {
+  border-left: 6px solid var(--clr-priority-2);
+}
+.priority-high {
+  border-left: 6px solid var(--clr-priority-3);
+}
+
+.task-item.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
 }
 
 header {
