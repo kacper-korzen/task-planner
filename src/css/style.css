@@ -11,7 +11,6 @@
   --clr-priority-1: hsl(230, 39%, 56%);
   --clr-priority-2: hsl(26, 68%, 57%);
   --clr-priority-3: hsl(348, 49%, 46%);
-  
 
   --ff-base: "Comfortaa", serif;
   --ff-accent: "Nunito", serif;
@@ -61,7 +60,6 @@ h2 {
 h3 {
   font-size: var(--fs-500);
 }
-
 
 button {
   background-color: transparent;
