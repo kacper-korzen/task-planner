@@ -4,13 +4,19 @@ import Project from "./classes/Project.js";
 
 const addProjectBtn = document.querySelector("#addProject");
 const projectsContainer = document.querySelector(".projects");
+const inboxBtn = document.querySelector("#inboxBtn");
+const addTaskBtn = document.querySelector(".btn-task");
+const tasksContainer = document.querySelector(".tasks");
+
+let projects = loadProjectsFromStorage();
+let activeProject = "Inbox";
 
 if (!localStorage.getItem("projects")) {
   saveDefaultProjects();
 }
 
-let projects = loadProjectsFromStorage();
 renderProjects();
+renderTasks();
 
 function saveProjectsToStorage(projects) {
   if (projects instanceof Array) {
@@ -59,12 +65,49 @@ function renderProjects() {
   projects
     .filter((project) => !project.isDefault)
     .forEach((project) => {
-      const btnProject = `<button>${project.name} </button>`;        
+      const btnProject = `<button>${project.name} </button>`;
       const buttonX = `<button class="delete-project btn-close" data-id="${project.id}" >X</button>`;
       const wrapper = `<div  class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
       projectsContainer.insertAdjacentHTML("beforeend", wrapper);
     });
-} 
+}
+
+function getPriorityClass(priority) {
+  switch (priority) {
+    case "low":
+      return "priority-low";
+    case "med":
+      return "priority-med";
+    case "high":
+      return "priority-high";
+    default:
+      return "";
+  }
+}
+
+function renderTasks() {
+  tasksContainer.innerHTML = "";
+
+  const currentProject = projects.find((p) => p.name === activeProject);
+  if (!currentProject) return;
+
+  currentProject.tasks.forEach((task) => {
+    const prClass = getPriorityClass(task.priority);
+    const completedClass = task.completed ? "completed" : "";
+
+    const html = `
+      <div class="task-item ${prClass} ${completedClass}" data-id="${task.id}">
+        <div class="task-content">
+          <h4 class="task-title">${task.title}</h4>
+          <p class="task-desc">${task.description}</p>
+        </div>
+        <small class="task-date">${task.dueDate}</small>
+      </div>
+    `;
+
+    tasksContainer.insertAdjacentHTML("beforeend", html);
+  });
+}
 
 addProjectBtn.addEventListener("click", () => {
   if (!document.querySelector(".new-project-wrapper")) {
@@ -97,9 +140,8 @@ projectsContainer.addEventListener("click", (e) => {
   }
 
   if (e.target.classList.contains("delete-project")) {
-    projects = projects.filter(p => p.id !== e.target.dataset.id);
+    projects = projects.filter((p) => p.id !== e.target.dataset.id);
     saveProjectsToStorage();
     renderProjects();
-
   }
 });
