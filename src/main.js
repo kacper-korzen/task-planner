@@ -59,16 +59,19 @@ function renderProjects() {
   projects
     .filter((project) => !project.isDefault)
     .forEach((project) => {
-      const btnProject = `<button data-id="${project.id}">${project.name} </button>`;
-      projectsContainer.insertAdjacentHTML("beforeend", btnProject);
+      const btnProject = `<button>${project.name} </button>`;        
+      const buttonX = `<button class="delete-project btn-close" data-id="${project.id}" >X</button>`;
+      const wrapper = `<div  class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
+      projectsContainer.insertAdjacentHTML("beforeend", wrapper);
     });
-}
+} 
 
 addProjectBtn.addEventListener("click", () => {
   if (!document.querySelector(".new-project-wrapper")) {
     const input = `<input type="text" class="new-project-input" placeholder="project name">`;
     const button = `<button class="confirm-add">Add</button>`;
-    const wrapper = `<div class='flex new-project-wrapper'> ${input} ${button} </div>`;
+    const buttonX = `<button class="close-input">X</button>`;
+    const wrapper = `<div class='flex new-project-wrapper'> ${input} ${button} ${buttonX} </div>`;
     projectsContainer.insertAdjacentHTML("beforeend", wrapper);
   }
 });
@@ -87,5 +90,16 @@ projectsContainer.addEventListener("click", (e) => {
 
       renderProjects();
     }
+  }
+
+  if (e.target.classList.contains("close-input")) {
+    document.querySelector(".new-project-wrapper").remove();
+  }
+
+  if (e.target.classList.contains("delete-project")) {
+    projects = projects.filter(p => p.id !== e.target.dataset.id);
+    saveProjectsToStorage();
+    renderProjects();
+
   }
 });
