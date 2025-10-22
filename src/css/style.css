@@ -12,6 +12,9 @@
   --clr-priority-2: hsl(26, 68%, 57%);
   --clr-priority-3: hsl(348, 49%, 46%);
 
+  --clr-success: hsl(106, 49%, 46%);
+  --clr-error: hsl(0, 73%, 58%);
+
   --ff-base: "Comfortaa", serif;
   --ff-accent: "Nunito", serif;
 
@@ -131,6 +134,10 @@ button:hover {
 
 .flex-col {
   flex-direction: column;
+}
+
+.btn-close{
+  color: var(--clr-error);
 }
 
 header {
