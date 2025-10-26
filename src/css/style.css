@@ -6,8 +6,8 @@
   --clr-body: hsl(36, 34%, 95%);
   --clr-background: hsl(120, 100%, 98%);
   --clr-primary: hsl(155, 14%, 64%);
-  --clr-primary-3: hsla(155, 14%, 64%, 0.3);
   --clr-primary-2: hsla(155, 14%, 64%, 0.2);
+  --clr-primary-3: hsla(155, 14%, 64%, 0.3);
   --clr-priority-1: hsl(230, 39%, 56%);
   --clr-priority-2: hsl(26, 68%, 57%);
   --clr-priority-3: hsl(348, 49%, 46%);
@@ -142,6 +142,10 @@ button:hover {
 
 .new-project-input {
    width: 100%;
+}
+
+.active-project {
+  background-color: var(--clr-primary-2);
 }
 
 .task-item {
