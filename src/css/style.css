@@ -68,7 +68,7 @@ button {
   background-color: transparent;
   border: none;
   width: fit-content;
-  font-size: var(--fs-300);
+  font-size: var(--fs-200);
   padding: 1rem 1.25rem;
   cursor: pointer;
   display: flex;
@@ -91,7 +91,7 @@ button:hover {
   background-color: var(--clr-primary-3);
 }
 
-.flow > * + * {
+.flow>*+* {
   --flow-space: 1em;
   margin-top: var(--flow-space, 1em);
 }
@@ -113,12 +113,12 @@ button:hover {
 }
 
 .pb-1 {
-  padding: 1rem;
+  padding-bottom: 1rem;
 }
 
 .wrapper {
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 0.3fr 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "header header"
@@ -140,6 +140,10 @@ button:hover {
   color: var(--clr-error);
 }
 
+.new-project-input {
+   width: 100%;
+}
+
 .task-item {
   display: flex;
   justify-content: space-between;
@@ -154,9 +158,11 @@ button:hover {
 .priority-low {
   border-left: 6px solid var(--clr-priority-1);
 }
+
 .priority-med {
   border-left: 6px solid var(--clr-priority-2);
 }
+
 .priority-high {
   border-left: 6px solid var(--clr-priority-3);
 }
