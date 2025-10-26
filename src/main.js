@@ -4,9 +4,11 @@ import Project from "./classes/Project.js";
 
 const addProjectBtn = document.querySelector("#addProject");
 const projectsContainer = document.querySelector(".projects");
-const inboxBtn = document.querySelector("#inboxBtn");
-const addTaskBtn = document.querySelector(".btn-task");
 const tasksContainer = document.querySelector(".tasks");
+const defaultProjects = document.querySelector(".default-projects");
+const defaultProjectsBtns = Array.from(defaultProjects.querySelectorAll('button'));
+const projectsBtns = Array.from(projectsContainer.querySelectorAll('button'));
+
 
 let projects = loadProjectsFromStorage();
 let activeProject = "Inbox";
@@ -128,7 +130,6 @@ projectsContainer.addEventListener("click", (e) => {
       const newProject = new Project(projectName);
       projects.push(newProject);
       saveProjectsToStorage(projects);
-      console.log(projects);
       document.querySelector(".new-project-wrapper").remove();
 
       renderProjects();
@@ -141,7 +142,31 @@ projectsContainer.addEventListener("click", (e) => {
 
   if (e.target.classList.contains("delete-project")) {
     projects = projects.filter((p) => p.id !== e.target.dataset.id);
-    saveProjectsToStorage();
+    saveProjectsToStorage(projects);
     renderProjects();
   }
 });
+
+function deleteActiveClass(projectsArray) {
+  projectsArray.forEach(b => b.classList.remove('active-project'));
+}
+
+
+function addEventListenerToProjectsBtns() {
+  // fix adding projects buttons to this array
+  let allProjecsBtns = [...defaultProjects, ...projectsBtns];
+
+  for (let btn of allProjecsBtns) {
+    btn.addEventListener('click', function ()  {
+      deleteActiveClass(defaultProjectsBtns);
+      this.classList.add('active-project');
+      activeProject = this.id;
+      renderTasks();     
+    });
+  }
+
+}
+
+addEventListenerToProjectsBtns();
+
+
