@@ -45,9 +45,22 @@ function saveDefaultProjects() {
 
 function loadProjectsFromStorage() {
   let parsedProjects = JSON.parse(localStorage.getItem("projects")) ?? [];
+
+  const seenIds = new Set();
+
   const projects = parsedProjects.map((project) => {
     const p = new Project(project.name, project.isDefault ?? false);
-    p.id = project.id;
+
+    if (project.id && !seenIds.has(project.id)) {
+      p.id = project.id;
+      seenIds.add(project.id);
+    }
+
+    if (!p.id || seenIds.has(p.id)) {
+      p.id = crypto.randomUUID();
+      seenIds.add(p.id);
+    }
+
     p.tasks = project.tasks.map((t) => {
       const task = new Task(
         t.title,
