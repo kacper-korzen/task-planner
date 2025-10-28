@@ -1,6 +1,16 @@
 import "./css/style.css";
 import Task from "./classes/Task.js";
 import Project from "./classes/Project.js";
+import {
+  saveProjectsToStorage,
+  saveDefaultProjects,
+  loadProjectsFromStorage,
+} from "./modules/storage.js";
+import {
+  renderProjects,
+  renderTasks,
+  addEventListenerToProjectsBtns,
+} from "./modules/render.js";
 
 const addProjectBtn = document.querySelector("#addProject");
 const projectsContainer = document.querySelector(".projects");
@@ -11,122 +21,29 @@ const defaultProjectsArray = Array.from(
 
 let projectsBtnsArray = [];
 let projects = loadProjectsFromStorage();
-let activeProject = "Inbox";
+let activeProjectId = "Inbox";
 
-if (!localStorage.getItem("projects")) {
-  saveDefaultProjects();
+function setActiveProjectId(newActive) {
+  activeProjectId = newActive;
+  renderTasks(projects, activeProjectId, tasksContainer);
 }
 
-renderProjects();
-renderTasks();
-
-function saveProjectsToStorage(projects) {
-  if (projects instanceof Array) {
-    let serializedProjects = JSON.stringify(projects);
-    localStorage.setItem("projects", serializedProjects);
-  } else {
-    console.warn("You tried to add something that isn't an Array instance");
+function init() {
+  if (!localStorage.getItem("projects")) {
+    saveDefaultProjects();
+    projects = loadProjectsFromStorage();
   }
-}
 
-function saveDefaultProjects() {
-  // DEFAULT PROJECTS
-  const Inbox = new Project("Inbox", true);
-  Inbox.id = "Inbox";
-  const Today = new Project("Today", true);
-  Today.id = "Today";
-  const ThisWeek = new Project("ThisWeek", true);
-  ThisWeek.id = "ThisWeek";
-
-  const projects = [Inbox, Today, ThisWeek];
-
-  saveProjectsToStorage(projects);
-}
-
-function loadProjectsFromStorage() {
-  let parsedProjects = JSON.parse(localStorage.getItem("projects")) ?? [];
-
-  const seenIds = new Set();
-
-  const projects = parsedProjects.map((project) => {
-    const p = new Project(project.name, project.isDefault ?? false);
-
-    if (project.id && !seenIds.has(project.id)) {
-      p.id = project.id;
-      seenIds.add(project.id);
-    }
-
-    if (!p.id || seenIds.has(p.id)) {
-      p.id = crypto.randomUUID();
-      seenIds.add(p.id);
-    }
-
-    p.tasks = project.tasks.map((t) => {
-      const task = new Task(
-        t.title,
-        t.description,
-        t.dueDate,
-        t.priority,
-        t.id
-      );
-      task.completed = t.completed;
-      return task;
-    });
-    return p;
+  renderProjects(projects, projectsContainer, () => {
+    addEventListenerToProjectsBtns(
+      projects,
+      tasksContainer,
+      setActiveProjectId,
+      renderTasks
+    );
   });
 
-  return projects;
-}
-
-function renderProjects() {
-  projectsContainer.innerHTML = "";
-  projects
-    .filter((project) => !project.isDefault)
-    .forEach((project) => {
-      const btnProject = `<button class="project-btn" data-id=${project.id}>${project.name} </button>`;
-      const buttonX = `<button class="delete-project btn-close" data-id="${project.id}" >X</button>`;
-      const wrapper = `<div  class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
-      projectsContainer.insertAdjacentHTML("beforeend", wrapper);
-    });
-
-  addEventListenerToProjectsBtns();
-}
-
-function getPriorityClass(priority) {
-  switch (priority) {
-    case "low":
-      return "priority-low";
-    case "med":
-      return "priority-med";
-    case "high":
-      return "priority-high";
-    default:
-      return "";
-  }
-}
-
-function renderTasks() {
-  tasksContainer.innerHTML = "";
-
-  const currentProject = projects.find((p) => p.id === activeProject);
-  if (!currentProject) return;
-
-  currentProject.tasks.forEach((task) => {
-    const prClass = getPriorityClass(task.priority);
-    const completedClass = task.completed ? "completed" : "";
-
-    const html = `
-      <div class="task-item ${prClass} ${completedClass}" data-id="${task.id}">
-        <div class="task-content">
-          <h4 class="task-title">${task.title}</h4>
-          <p class="task-desc">${task.description}</p>
-        </div>
-        <small class="task-date">${task.dueDate}</small>
-      </div>
-    `;
-
-    tasksContainer.insertAdjacentHTML("beforeend", html);
-  });
+  setActiveProjectId(activeProjectId);
 }
 
 addProjectBtn.addEventListener("click", () => {
@@ -150,7 +67,14 @@ projectsContainer.addEventListener("click", (e) => {
       saveProjectsToStorage(projects);
       document.querySelector(".new-project-wrapper").remove();
 
-      renderProjects();
+      renderProjects(projects, projectsContainer, () => {
+        addEventListenerToProjectsBtns(
+          projects,
+          tasksContainer,
+          setActiveProjectId,
+          renderTasks
+        );
+      });
     }
   }
 
@@ -161,29 +85,16 @@ projectsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-project")) {
     projects = projects.filter((p) => p.id !== e.target.dataset.id);
     saveProjectsToStorage(projects);
-    renderProjects();
+    renderProjects(projects, projectsContainer, () => {
+      addEventListenerToProjectsBtns(
+        projects,
+        defaultProjectsArray,
+        tasksContainer,
+        setActiveProjectId,
+        renderTasks
+      );
+    });
   }
 });
 
-function deleteActiveClass(projectsArray) {
-  projectsArray.forEach((b) => b.classList.remove("active-project"));
-}
-
-function addEventListenerToProjectsBtns() {
-  const defaultBtns = Array.from(
-    document.querySelectorAll(".default-projects button")
-  );
-  const projectBtns = Array.from(document.querySelectorAll(".project-btn"));
-
-  const allBtns = [...defaultBtns, ...projectBtns];
-
-  allBtns.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      deleteActiveClass(allBtns);
-      this.classList.add("active-project");
-      activeProject = this.dataset.id || this.id;
-      renderTasks();
-    });
-  });
-
-}
+init();
