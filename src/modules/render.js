@@ -1,37 +1,26 @@
-import { getPriorityClass } from "./helpers.js";
-import { deleteActiveClass } from "./helpers.js";
+import { getPriorityClass, removeActiveClass } from "./helpers.js";
 
-//fix adding event listeners to project
-export function renderProjects(
-  projects,
-  projectsContainer,
-  addEventListenerToProjectsBtns
-) {
-  projectsContainer.innerHTML = "";
+export function renderProjects(projects, container, onProjectClick) {
+  container.innerHTML = "";
   projects
     .filter((project) => !project.isDefault)
     .forEach((project) => {
       const btnProject = `<button class="project-btn" data-id=${project.id}>${project.name} </button>`;
       const buttonX = `<button class="delete-project btn-close" data-id="${project.id}" >X</button>`;
       const wrapper = `<div  class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
-      projectsContainer.insertAdjacentHTML("beforeend", wrapper);
+      container.insertAdjacentHTML("beforeend", wrapper);
     });
 
-  addEventListenerToProjectsBtns(
-    projects,
-    tasksContainer,
-    setActiveProjectId,
-    renderTasks
-  );
+  onProjectClick();
 }
 
-export function renderTasks(projects, activeProject, tasksContainer) {
-  tasksContainer.innerHTML = "";
+export function renderTasks(projects, activeProjectId, container) {
+  container.innerHTML = "";
 
-  const currentProject = projects.find((p) => p.id === activeProject);
-  if (!currentProject) return;
+  const project = projects.find((p) => p.id === activeProjectId);
+  if (!project) return;
 
-  currentProject.tasks.forEach((task) => {
+  project.tasks.forEach((task) => {
     const prClass = getPriorityClass(task.priority);
     const completedClass = task.completed ? "completed" : "";
 
@@ -45,7 +34,7 @@ export function renderTasks(projects, activeProject, tasksContainer) {
       </div>
     `;
 
-    tasksContainer.insertAdjacentHTML("beforeend", html);
+    container.insertAdjacentHTML("beforeend", html);
   });
 }
 
@@ -64,8 +53,9 @@ export function addEventListenerToProjectsBtns(
 
   allBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
-      deleteActiveClass(allBtns);
+      removeActiveClass(allBtns);
       this.classList.add("active-project");
+
       const newActive = this.dataset.id || this.id;
       setActiveProject(newActive);
       renderTasks(projects, newActive, tasksContainer);
