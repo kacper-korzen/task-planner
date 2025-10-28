@@ -16,16 +16,26 @@ const addProjectBtn = document.querySelector("#addProject");
 const projectsContainer = document.querySelector(".projects");
 const tasksContainer = document.querySelector(".tasks");
 const defaultProjectsArray = Array.from(
-  document.querySelector(".default-projects").querySelectorAll("button")
+  document.querySelector(".default-projects button")
 );
 
-let projectsBtnsArray = [];
 let projects = loadProjectsFromStorage();
 let activeProjectId = "Inbox";
 
-function setActiveProjectId(newActive) {
-  activeProjectId = newActive;
-  renderTasks(projects, activeProjectId, tasksContainer);
+function setActiveProjectId(id) {
+  activeProjectId = id;
+  renderTasks(projects, id, tasksContainer);
+}
+
+function renderAllProjects() {
+  renderProjects(projects, projectsContainer, () =>
+    addEventListenerToProjectsBtns(
+      projects,
+      tasksContainer,
+      setActiveProjectId,
+      renderTasks
+    )
+  );
 }
 
 function init() {
@@ -34,15 +44,7 @@ function init() {
     projects = loadProjectsFromStorage();
   }
 
-  renderProjects(projects, projectsContainer, () => {
-    addEventListenerToProjectsBtns(
-      projects,
-      tasksContainer,
-      setActiveProjectId,
-      renderTasks
-    );
-  });
-
+  renderAllProjects();
   setActiveProjectId(activeProjectId);
 }
 
@@ -57,7 +59,8 @@ addProjectBtn.addEventListener("click", () => {
 });
 
 projectsContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("confirm-add")) {
+  const target = e.target;
+  if (target.classList.contains("confirm-add")) {
     const input = document.querySelector(".new-project-input");
     const projectName = input.value.trim();
 
@@ -67,23 +70,16 @@ projectsContainer.addEventListener("click", (e) => {
       saveProjectsToStorage(projects);
       document.querySelector(".new-project-wrapper").remove();
 
-      renderProjects(projects, projectsContainer, () => {
-        addEventListenerToProjectsBtns(
-          projects,
-          tasksContainer,
-          setActiveProjectId,
-          renderTasks
-        );
-      });
+      renderAllProjects();
     }
   }
 
-  if (e.target.classList.contains("close-input")) {
+  if (target.classList.contains("close-input")) {
     document.querySelector(".new-project-wrapper").remove();
   }
 
-  if (e.target.classList.contains("delete-project")) {
-    projects = projects.filter((p) => p.id !== e.target.dataset.id);
+  if (target.classList.contains("delete-project")) {
+    projects = projects.filter((p) => p.id !== target.dataset.id);
     saveProjectsToStorage(projects);
     renderProjects(projects, projectsContainer, () => {
       addEventListenerToProjectsBtns(
