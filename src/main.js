@@ -170,25 +170,20 @@ function deleteActiveClass(projectsArray) {
 }
 
 function addEventListenerToProjectsBtns() {
-  projectsBtnsArray = [...document.querySelectorAll(".project-btn")];
-  let allProjectsBtns = [...defaultProjectsArray, ...projectsBtnsArray];
+  const defaultBtns = Array.from(
+    document.querySelectorAll(".default-projects button")
+  );
+  const projectBtns = Array.from(document.querySelectorAll(".project-btn"));
 
-  allProjectsBtns.forEach((btn) => {
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-  });
+  const allBtns = [...defaultBtns, ...projectBtns];
 
-  const updatedBtns = [
-    ...document.querySelectorAll(".default-projects button"),
-    ...document.querySelectorAll(".project-btn"),
-  ];
-
-  for (let btn of updatedBtns) {
+  allBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
-      deleteActiveClass(updatedBtns);
+      deleteActiveClass(allBtns);
       this.classList.add("active-project");
       activeProject = this.dataset.id || this.id;
       renderTasks();
     });
-  }
+  });
+
 }
