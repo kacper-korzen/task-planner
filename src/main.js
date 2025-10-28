@@ -5,11 +5,11 @@ import Project from "./classes/Project.js";
 const addProjectBtn = document.querySelector("#addProject");
 const projectsContainer = document.querySelector(".projects");
 const tasksContainer = document.querySelector(".tasks");
-const defaultProjects = document.querySelector(".default-projects");
-const defaultProjectsBtns = Array.from(defaultProjects.querySelectorAll('button'));
-const projectsBtns = Array.from(projectsContainer.querySelectorAll('button'));
+const defaultProjectsArray = Array.from(
+  document.querySelector(".default-projects").querySelectorAll("button")
+);
 
-
+let projectsBtnsArray = [];
 let projects = loadProjectsFromStorage();
 let activeProject = "Inbox";
 
@@ -32,8 +32,11 @@ function saveProjectsToStorage(projects) {
 function saveDefaultProjects() {
   // DEFAULT PROJECTS
   const Inbox = new Project("Inbox", true);
+  Inbox.id = "Inbox";
   const Today = new Project("Today", true);
+  Today.id = "Today";
   const ThisWeek = new Project("ThisWeek", true);
+  ThisWeek.id = "ThisWeek";
 
   const projects = [Inbox, Today, ThisWeek];
 
@@ -67,11 +70,13 @@ function renderProjects() {
   projects
     .filter((project) => !project.isDefault)
     .forEach((project) => {
-      const btnProject = `<button>${project.name} </button>`;
+      const btnProject = `<button class="project-btn" data-id=${project.id}>${project.name} </button>`;
       const buttonX = `<button class="delete-project btn-close" data-id="${project.id}" >X</button>`;
       const wrapper = `<div  class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
       projectsContainer.insertAdjacentHTML("beforeend", wrapper);
     });
+
+  addEventListenerToProjectsBtns();
 }
 
 function getPriorityClass(priority) {
@@ -90,7 +95,7 @@ function getPriorityClass(priority) {
 function renderTasks() {
   tasksContainer.innerHTML = "";
 
-  const currentProject = projects.find((p) => p.name === activeProject);
+  const currentProject = projects.find((p) => p.id === activeProject);
   if (!currentProject) return;
 
   currentProject.tasks.forEach((task) => {
@@ -148,25 +153,29 @@ projectsContainer.addEventListener("click", (e) => {
 });
 
 function deleteActiveClass(projectsArray) {
-  projectsArray.forEach(b => b.classList.remove('active-project'));
+  projectsArray.forEach((b) => b.classList.remove("active-project"));
 }
-
 
 function addEventListenerToProjectsBtns() {
-  // fix adding projects buttons to this array
-  let allProjecsBtns = [...defaultProjects, ...projectsBtns];
+  projectsBtnsArray = [...document.querySelectorAll(".project-btn")];
+  let allProjectsBtns = [...defaultProjectsArray, ...projectsBtnsArray];
 
-  for (let btn of allProjecsBtns) {
-    btn.addEventListener('click', function ()  {
-      deleteActiveClass(defaultProjectsBtns);
-      this.classList.add('active-project');
-      activeProject = this.id;
-      renderTasks();     
+  allProjectsBtns.forEach((btn) => {
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+  });
+
+  const updatedBtns = [
+    ...document.querySelectorAll(".default-projects button"),
+    ...document.querySelectorAll(".project-btn"),
+  ];
+
+  for (let btn of updatedBtns) {
+    btn.addEventListener("click", function () {
+      deleteActiveClass(updatedBtns);
+      this.classList.add("active-project");
+      activeProject = this.dataset.id || this.id;
+      renderTasks();
     });
   }
-
 }
-
-addEventListenerToProjectsBtns();
-
-
