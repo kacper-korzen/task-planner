@@ -11,6 +11,6 @@ export function getPriorityClass(priority) {
   }
 }
 
-export function deleteActiveClass(projectsArray) {
+export function removeActiveClass(projectsArray) {
   projectsArray.forEach((b) => b.classList.remove("active-project"));
 }
