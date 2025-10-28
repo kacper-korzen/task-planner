@@ -27,7 +27,7 @@ export function deleteTask(projects, activeProjectId, taskId, tasksContainer) {
   project.tasks = projects.tasks.filter((t) => t.id !== taskId);
 }
 
-export function toggleTaskComplete(projects, projectId, taskId, container) {
+export function toggleTaskCompletion(projects, projectId, taskId, container) {
   const project = projects.find((p) => p.id === projectId);
   if (!project) return;
 
