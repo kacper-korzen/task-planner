@@ -2,12 +2,13 @@ import Project from "../classes/Project.js";
 import Task from "../classes/Task.js";
 
 export function saveProjectsToStorage(projects) {
-  if (projects instanceof Array) {
-    let serializedProjects = JSON.stringify(projects);
-    localStorage.setItem("projects", serializedProjects);
-  } else {
+  if (!Array.isArray(projects)) {
     console.warn("You tried to add something that isn't an Array instance");
+    return;
   }
+
+  let serializedProjects = JSON.stringify(projects);
+  localStorage.setItem("projects", serializedProjects);
 }
 
 export function saveDefaultProjects() {
