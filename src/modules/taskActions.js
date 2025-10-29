@@ -20,11 +20,14 @@ export function addTask(projects, projectId, container, taskData) {
   renderTasks(projects, projectId, container);
 }
 
-export function deleteTask(projects, activeProjectId, taskId, tasksContainer) {
-  const project = projects.find((p) => p.id === taskId);
+export function deleteTask(projects, projectId, taskId, tasksContainer) {
+  const project = projects.find((p) => p.id === projectId);
   if (!project) return;
 
   project.tasks = projects.tasks.filter((t) => t.id !== taskId);
+
+  saveProjectsToStorage(projects);
+  renderTasks(projects, projectId, tasksContainer);
 }
 
 export function toggleTaskCompletion(projects, projectId, taskId, container) {
