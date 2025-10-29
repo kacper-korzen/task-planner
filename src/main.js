@@ -125,7 +125,6 @@ function setupEventListeners() {
     if (existingForm) return;
 
     renderTaskForm(tasksContainer, (taskData) => {
-      console.log("Adding task to:", activeProjectId, projects.map(p => p.id));
       addTask(projects, activeProjectId, tasksContainer, taskData);
       saveProjectsToStorage(projects);
     });
