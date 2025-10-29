@@ -23,23 +23,22 @@ export function renderTasks(projects, activeProjectId, container) {
 
   let tasksToRender = [];
   const inbox = projects.find((p) => p.id === "Inbox");
-  
+
   if (activeProjectId === "Today" && inbox) {
-    tasksToRender = inbox.tasks.filter(task =>
+    tasksToRender = inbox.tasks.filter((task) =>
       isToday(parseISO(task.dueDate))
     );
   } else if (activeProjectId === "ThisWeek" && inbox) {
-    tasksToRender = inbox.tasks.filter(task =>
+    tasksToRender = inbox.tasks.filter((task) =>
       isThisWeek(parseISO(task.dueDate), { weekStartsOn: 1 })
     );
   } else {
     const project = projects.find((p) => p.id === activeProjectId);
     if (!project) return;
-    tasksToRender = project.tasks.slice().sort(
-      (a, b) => parseISO(a.dueDate) - parseISO(b.dueDate)
-    );
+    tasksToRender = project.tasks
+      .slice()
+      .sort((a, b) => parseISO(a.dueDate) - parseISO(b.dueDate));
   }
-
 
   if (tasksToRender.length === 0) {
     container.innerHTML = `<p class="no-tasks">Brak tasków do wyświetlenia</p>`;
@@ -57,6 +56,10 @@ export function renderTasks(projects, activeProjectId, container) {
           <p class="task-desc">${task.description}</p>
         </div>
         <small class="task-date">${task.dueDate}</small>
+        <div class="task-actions">
+          <button class="toggle-task">✔</button>
+          <button class="delete-task">🗑</button>
+        </div>
       </div>
     `;
 
