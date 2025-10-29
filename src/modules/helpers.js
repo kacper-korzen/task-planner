@@ -1,7 +1,7 @@
 export const getPriorityClass = (priority) =>
   ({
     low: "priority-low",
-    med: "priority-med",
+    medium: "priority-med",
     high: "priority-high",
   }[priority] ?? "");
 
