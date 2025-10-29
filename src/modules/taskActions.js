@@ -21,21 +21,29 @@ export function addTask(projects, projectId, container, taskData) {
 }
 
 export function deleteTask(projects, projectId, taskId, tasksContainer) {
-  const project = projects.find((p) => p.id === projectId);
+  const targetProjectId =
+    projectId === "Today" || projectId === "ThisWeek" ? "Inbox" : projectId;
+
+  const project = projects.find((p) => p.id === targetProjectId);
   if (!project) return;
 
-  projects.tasks = projects.tasks.filter((t) => t.id !== taskId);
+  project.tasks = project.tasks.filter((t) => t.id !== taskId);
 
   saveProjectsToStorage(projects);
   renderTasks(projects, projectId, tasksContainer);
 }
 
 export function toggleTaskCompletion(projects, projectId, taskId, container) {
-  const project = projects.find((p) => p.id === projectId);
+  const targetProjectId =
+    projectId === "Today" || projectId === "ThisWeek" ? "Inbox" : projectId;
+
+  const project = projects.find((p) => p.id === targetProjectId);
   if (!project) return;
 
   const task = project.tasks.find((t) => t.id === taskId);
-  if (task) task.completed = !task.completed;
+  if (!task) return; 
+    
+  task.completed = !task.completed;
 
   saveProjectsToStorage(projects);
   renderTasks(projects, projectId, container);
