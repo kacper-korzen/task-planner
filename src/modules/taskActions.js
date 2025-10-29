@@ -24,7 +24,7 @@ export function deleteTask(projects, projectId, taskId, tasksContainer) {
   const project = projects.find((p) => p.id === projectId);
   if (!project) return;
 
-  project.tasks = projects.tasks.filter((t) => t.id !== taskId);
+  projects.tasks = projects.tasks.filter((t) => t.id !== taskId);
 
   saveProjectsToStorage(projects);
   renderTasks(projects, projectId, tasksContainer);
