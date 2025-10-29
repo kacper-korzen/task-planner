@@ -7,7 +7,7 @@ export function renderProjects(projects, container, onProjectClick) {
     .forEach((project) => {
       const btnProject = `<button class="project-btn" data-id=${project.id}>${project.name} </button>`;
       const buttonX = `<button class="delete-project btn-close" data-id="${project.id}" >X</button>`;
-      const wrapper = `<div  class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
+      const wrapper = `<div class='flex flex-grow-1'> ${btnProject} ${buttonX} </div>`;
       container.insertAdjacentHTML("beforeend", wrapper);
     });
 
@@ -60,5 +60,36 @@ export function addEventListenerToProjectsBtns(
       setActiveProject(newActive);
       renderTasks(projects, newActive, tasksContainer);
     });
+  });
+}
+
+export function renderTaskForm(container, onSubmit) {
+  const today = new Date().toISOString().split("T")[0];
+
+  const html = `<div class="task-form">
+      <input type="text" id="taskTitle" placeholder="Task title" required />
+      <input type="text" id="taskDesc" placeholder="Description" />
+      <input type="date" id="taskDate" value="${today}" />
+      <select id="taskPriority">
+        <option value="low" selected>Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      <button id="confirmAddTask">Add Task</button>
+    </div>`;
+
+  container.insertAdjacentHTML("beforeend", html);
+
+  const addBtn = document.querySelector('#confirmAddTask');
+  addBtn.addEventListener('click', ()=>{
+    const taskData = {
+      title: document.querySelector('#taskTitle').value.trim(),
+      description: document.querySelector('#taskDesc').value.trim(),
+      dueDate: document.querySelector('#taskDate').value,
+      priority: document.querySelector('#taskPriority').value,
+    };
+
+    if (!taskData.title) return;
+    onSubmit(taskData);
   });
 }
