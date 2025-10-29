@@ -80,13 +80,13 @@ export function renderTaskForm(container, onSubmit) {
 
   container.insertAdjacentHTML("beforeend", html);
 
-  const addBtn = document.querySelector('#confirmAddTask');
-  addBtn.addEventListener('click', ()=>{
+  const addBtn = document.querySelector("#confirmAddTask");
+  addBtn.addEventListener("click", () => {
     const taskData = {
-      title: document.querySelector('#taskTitle').value.trim(),
-      description: document.querySelector('#taskDesc').value.trim(),
-      dueDate: document.querySelector('#taskDate').value,
-      priority: document.querySelector('#taskPriority').value,
+      title: document.querySelector("#taskTitle").value.trim(),
+      description: document.querySelector("#taskDesc").value.trim(),
+      dueDate: document.querySelector("#taskDate").value,
+      priority: document.querySelector("#taskPriority").value,
     };
 
     if (!taskData.title) return;
