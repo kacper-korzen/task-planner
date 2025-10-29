@@ -34,6 +34,7 @@ let activeProjectId = "Inbox";
 // --- State Management ---
 function setActiveProjectId(id) {
   activeProjectId = id;
+  updateAddTaskBtnState(activeProjectId);
   renderTasks(projects, id, tasksContainer);
 }
 
@@ -47,6 +48,15 @@ function renderAllProjects() {
     )
   );
 }
+
+function updateAddTaskBtnState(projectId) {
+  if (projectId === "Today" || projectId === "ThisWeek") {
+    addTaskBtn.classList.add('hidden');
+  } else {
+    addTaskBtn.classList.remove('hidden');
+  } 
+}
+
 
 // --- Initialization ---
 function init() {
@@ -115,6 +125,7 @@ function setupEventListeners() {
     if (existingForm) return;
 
     renderTaskForm(tasksContainer, (taskData) => {
+      console.log("Adding task to:", activeProjectId, projects.map(p => p.id));
       addTask(projects, activeProjectId, tasksContainer, taskData);
       saveProjectsToStorage(projects);
     });
