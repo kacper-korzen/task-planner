@@ -1,4 +1,5 @@
 import { getPriorityClass, removeActiveClass } from "./helpers.js";
+import { isToday, isThisWeek, parseISO } from "date-fns";
 
 export function renderProjects(projects, container, onProjectClick) {
   container.innerHTML = "";
@@ -20,7 +21,32 @@ export function renderTasks(projects, activeProjectId, container) {
   const project = projects.find((p) => p.id === activeProjectId);
   if (!project) return;
 
-  project.tasks.forEach((task) => {
+  let tasksToRender = [];
+  const inbox = projects.find((p) => p.id === "Inbox");
+  
+  if (activeProjectId === "Today" && inbox) {
+    tasksToRender = inbox.tasks.filter(task =>
+      isToday(parseISO(task.dueDate))
+    );
+  } else if (activeProjectId === "ThisWeek" && inbox) {
+    tasksToRender = inbox.tasks.filter(task =>
+      isThisWeek(parseISO(task.dueDate), { weekStartsOn: 1 })
+    );
+  } else {
+    const project = projects.find((p) => p.id === activeProjectId);
+    if (!project) return;
+    tasksToRender = project.tasks.slice().sort(
+      (a, b) => parseISO(a.dueDate) - parseISO(b.dueDate)
+    );
+  }
+
+
+  if (tasksToRender.length === 0) {
+    container.innerHTML = `<p class="no-tasks">Brak tasków do wyświetlenia</p>`;
+    return;
+  }
+
+  tasksToRender.forEach((task) => {
     const prClass = getPriorityClass(task.priority);
     const completedClass = task.completed ? "completed" : "";
 
