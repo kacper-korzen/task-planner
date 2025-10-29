@@ -36,9 +36,7 @@ export function loadProjectsFromStorage() {
     if (project.id && !seenIds.has(project.id)) {
       p.id = project.id;
       seenIds.add(project.id);
-    }
-
-    if (!p.id || seenIds.has(p.id)) {
+    } else if (!p.id) {
       p.id = crypto.randomUUID();
       seenIds.add(p.id);
     }
