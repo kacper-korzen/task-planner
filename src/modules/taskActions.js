@@ -24,7 +24,7 @@ export function deleteTask(projects, projectId, taskId, tasksContainer) {
   const targetProjectId =
     projectId === "Today" || projectId === "ThisWeek" ? "Inbox" : projectId;
 
-  const project = projects.find((p) => p.id === targetProjectId);
+  const project = projects.find((p) => p.id === projectId);
   if (!project) return;
 
   project.tasks = project.tasks.filter((t) => t.id !== taskId);
