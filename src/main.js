@@ -51,12 +51,11 @@ function renderAllProjects() {
 
 function updateAddTaskBtnState(projectId) {
   if (projectId === "Today" || projectId === "ThisWeek") {
-    addTaskBtn.classList.add('hidden');
+    addTaskBtn.classList.add("hidden");
   } else {
-    addTaskBtn.classList.remove('hidden');
-  } 
+    addTaskBtn.classList.remove("hidden");
+  }
 }
-
 
 // --- Initialization ---
 function init() {
@@ -138,12 +137,10 @@ function setupEventListeners() {
 
     if (e.target.classList.contains("delete-task")) {
       deleteTask(projects, activeProjectId, taskId, tasksContainer);
-      saveProjectsToStorage(projects);
     }
 
     if (e.target.classList.contains("toggle-task")) {
       toggleTaskCompletion(projects, activeProjectId, taskId, tasksContainer);
-      saveProjectsToStorage(projects);
     }
   });
 }
