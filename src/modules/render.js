@@ -107,7 +107,7 @@ export function renderTaskForm(container, onSubmit) {
       <button id="confirmAddTask">Add Task</button>
     </div>`;
 
-  container.insertAdjacentHTML("beforeend", html);
+  container.insertAdjacentHTML("afterbegin", html);
 
   const addBtn = document.querySelector("#confirmAddTask");
   addBtn.addEventListener("click", () => {
