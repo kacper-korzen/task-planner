@@ -42,6 +42,7 @@ body {
   font-size: var(--fs-400);
   line-height: 1.5;
   color: var(--clr-text);
+  overflow-y: hidden;
 }
 
 h1,
@@ -148,17 +149,6 @@ button:hover {
   background-color: var(--clr-primary-2);
 }
 
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.6rem;
-  margin-bottom: 0.5rem;
-  border-radius: 8px;
-  background: var(--clr-background);
-  transition: transform 0.08s ease;
-}
-
 .priority-low {
   border-left: 6px solid var(--clr-priority-1);
 }
@@ -171,10 +161,38 @@ button:hover {
   border-left: 6px solid var(--clr-priority-3);
 }
 
+.tasks {
+  max-height: 80vh;
+  overflow-y: auto;
+  min-width: 60vw;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background: var(--clr-primary-3);
+  transition: transform 0.08s ease;
+}
+
 .task-item.completed {
   opacity: 0.6;
   text-decoration: line-through;
   transition: opacity 0.3s;
+}
+
+.task-form {
+  background-color: var(--clr-primary);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.task-form button {
+  background-color: var(--clr-body);
 }
 
 .hidden {
