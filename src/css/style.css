@@ -170,18 +170,89 @@ button:hover {
 .task-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.6rem;
-  margin-bottom: 0.5rem;
-  border-radius: 8px;
-  background: var(--clr-primary-3);
-  transition: transform 0.08s ease;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  background: var(--clr-background);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
+.task-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+
 .task-item.completed {
-  opacity: 0.6;
+  opacity: 0.65;
+  background: hsl(120, 10%, 94%);
+  border-left-color: var(--clr-success);
+  border-left: 6px solid var(--clr-primary) !important;
+
+}
+
+.task-item.completed .task-title {
   text-decoration: line-through;
-  transition: opacity 0.3s;
+  color: hsl(0, 0%, 40%);
+}
+
+.task-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.task-title {
+  font-size: var(--fs-300);
+  font-weight: var(--fw-semi-bold);
+  color: var(--clr-text);
+}
+
+.task-desc {
+  font-size: var(--fs-200);
+  color: hsl(0, 0%, 35%);
+  line-height: 1.4;
+}
+
+.task-date {
+  font-size: var(--fs-100);
+  color: hsl(0, 0%, 50%);
+  margin-top: 0.25rem;
+}
+
+.task-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.task-actions button:hover {
+  background-color: var(--clr-primary-2);
+  transform: scale(1.1);
+}
+
+.toggle-task {
+  color: var(--clr-success);
+}
+
+.delete-task {
+  color: var(--clr-error);
 }
 
 .task-form {
