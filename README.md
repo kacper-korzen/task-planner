@@ -1,27 +1,35 @@
 # Task planner
 
-A simple to-do list web application built using JavaScript, HTML, and CSS — developed as part of The Odin Project's JavaScript curriculum.
+A modern and responsive to-do list web application built using **Vanilla JavaScript (ES6 modules)**, **HTML**, and **CSS** — developed as part of The Odin Project’s JavaScript curriculum, then extended with improved logic and UI refinements.
 
-## Description
+## 🧩 Description
 
-This project is a dynamic task management app where users can create, organize, and manage their to-dos. The main goal was to practice modular JavaScript, DOM manipulation, and data persistence using `localStorage`.
+Task Planner is a lightweight, dynamic task management app that allows users to create, organize, and track tasks efficiently.  
+The app emphasizes **clean modular architecture**, **DOM-based rendering**, and **persistent local data storage** via `localStorage`.
 
-Users can add tasks, group them into projects, set due dates, and mark them as complete. All data is saved locally, ensuring that to-dos persist between sessions.
+Each task can be assigned a **priority**, **due date**, and completion state.  
+Tasks are grouped under **projects**, making it easy to manage different categories of work or personal goals.
 
-## Features
+---
 
-- Modular JavaScript with ES6 modules
-- Fully interactive UI generated via DOM manipulation
-- Project-based task organization
-- Due dates and task priority support
-- Local storage integration for data persistence
-- Clean, responsive UI styled with custom CSS
-- Built and served using [Vite](https://vitejs.dev/) for fast development and hot module replacement
+## ✨ Features
+
+- 🧱 **Modular JavaScript (ES6)** – clean separation into classes and modules (`Project`, `Task`, `render`, `taskActions`, `storage`).
+- 💾 **Persistent data** – all projects and tasks are saved using `localStorage`.
+- 🗂️ **Project-based organization** – create, rename, and delete projects to group related tasks.
+- 📝 **Task management** – add, delete, and mark tasks as completed.
+- 🎯 **Task priorities** – low / medium / high, each visually highlighted with custom colors.
+- 📅 **Due dates** – sort tasks by upcoming deadlines.
+- 🧠 **Smart views** – “Today” and “This Week” dynamically filter tasks from the Inbox.
+- 🎨 **Modern responsive UI** – fully redesigned cards, smooth hover effects, and soft color palette.
+- ⚙️ **No frameworks** – built entirely in vanilla JS, HTML, and CSS for learning purposes.
+- 🚀 **Built with [Vite](https://vitejs.dev/)** – fast local development and automatic reloading.
+
+---
 
 ## Demo
 
-[**Live Demo**](https://kacper-korzen.github.io/task-planner)  
-[**Project Specs**](https://www.theodinproject.com/lessons/node-path-javascript-todo-list#project-solution)
+[**Live Demo**](https://kacper-korzen.github.io/task-planner) | [**Project Specs**](https://www.theodinproject.com/lessons/node-path-javascript-todo-list#project-solution)
 
 ## Screenshots
 
@@ -33,7 +41,7 @@ To run this project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/todo-list.git
+   git clone https://github.com/kacper-korzen/todo-list.git
    cd todo-list
    npm install
    npm run dev
